@@ -9,13 +9,13 @@ We are redesigning our Microservice example and want our frontend service to be 
 
 #### Configure Node Affinity for the services
 
-Open the deployment manifest of the frontend service in your Cloud9 editor - **~/environment/ecsdemo-frontend/kubernetes/deployment.yaml**
+1. Open the deployment manifest of the frontend service in your Cloud9 editor - **~/environment/ecsdemo-frontend/kubernetes/deployment.yaml**
 
-Edit the spec to configure NodeAffinity to **prefer** Spot Instances, but not **require** them. This will allow the pods to be scheduled on On-Demand nodes if no spot instances were available or correctly labelled.
+2. Edit the spec to configure NodeAffinity to **prefer** Spot Instances, but not **require** them. This will allow the pods to be scheduled on On-Demand nodes if no Spot Instances were available or correctly labelled.
 
-Open the deployment manifest for the backend services in your Cloud9 editor - **~/environment/ecsdemo-nodejs/kubernetes/deployment.yaml** and **~/environment/ecsdemo-crystal/kubernetes/deployment.yaml**
+3. Open the deployment manifest for the backend services in your Cloud9 editor - **~/environment/ecsdemo-nodejs/kubernetes/deployment.yaml** and **~/environment/ecsdemo-crystal/kubernetes/deployment.yaml**
 
-Edit the spec to configure NodeAffinity to **require** On-Demand Instances. This will allow the pods to be scheduled on On-Demand nodes and not on the Spot Instances.
+4. Edit the spec to configure NodeAffinity to **require** On-Demand Instances. This will allow the pods to be scheduled on On-Demand nodes and not on the Spot Instances.
 
 For examples of Node Affinity, check this [**link**](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
 
@@ -93,7 +93,7 @@ We can again check all pods deployed on Spot Instances and should now see the fr
  for n in $(kubectl get nodes -l eks.amazonaws.com/capacityType=SPOT --no-headers | cut -d " " -f1); do echo "Pods on instance ${n}:";kubectl get pods --all-namespaces  --no-headers --field-selector spec.nodeName=${n} ; echo ; done
 ```
 
-Let's check all the pods deployed on On-Demand Instances and should now see all the backend pods running on On-Demand instances
+Let's check all the pods deployed on On-Demand Instances and should now see all the backend pods running on On-Demand Instances
 
 ```bash
  for n in $(kubectl get nodes -l eks.amazonaws.com/capacityType=ON_DEMAND --no-headers | cut -d " " -f1); do echo "Pods on instance ${n}:";kubectl get pods --all-namespaces  --no-headers --field-selector spec.nodeName=${n} ; echo ; done

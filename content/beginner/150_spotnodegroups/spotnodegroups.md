@@ -18,7 +18,7 @@ kubectl get nodes \
 
 #### Create Spot managed node group
 
-We will now create the a Spot managed node group using the --spot option in `eksctl create nodegroup` command.
+We will now create a Spot managed node group using the --spot option in `eksctl create nodegroup` command.
 
 ```bash
 eksctl create nodegroup \
@@ -28,12 +28,12 @@ eksctl create nodegroup \
 ```
 
 {{% notice warning %}}
-Note, the instances above might not be present in your region. To select instances that meet that criteria in your region, you could install [https://github.com/aws/amazon-ec2-instance-selector](https://github.com/aws/amazon-ec2-instance-selector) and execute the command `ec2-instance-selector --base-instance-type m5.large --flexible` to get a diversified selection of instances available in your region of choice that meet the criteria of being similar to m4.large (in vCPU and memory terms)
+Note, the instance types above might not be present in your region. To select instance types that meet that criteria in your region, you could install [https://github.com/aws/amazon-ec2-instance-selector](https://github.com/aws/amazon-ec2-instance-selector) and execute the command `ec2-instance-selector --base-instance-type m5.large --flexible` to get a diversified selection of instance types available in your region of choice that meet the criteria of being similar to m4.large (in vCPU and memory terms)
 {{% /notice %}}
 
 Spot managed node group creates a label **eks.amazonaws.com/capacityType** and sets it to **SPOT** for the nodes.
 
-The Spot managed node group created follows Spot best practices including using [capacity-optimized](https://aws.amazon.com/blogs/compute/introducing-the-capacity-optimized-allocation-strategy-for-amazon-ec2-spot-instances/) as the spotAllocationStrategy, which will launch instances from the Spot Instance pools with the most available capacity (when EC2 needs the capacity back), aiming to decrease the number of Spot interruptions in our cluster.
+The Spot managed node group created follows Spot best practices including using [capacity-optimized](https://aws.amazon.com/blogs/compute/introducing-the-capacity-optimized-allocation-strategy-for-amazon-ec2-spot-instances/) as the spotAllocationStrategy in the underlying EC2 Auto Scaling group, which will launch instances from the Spot Instance pools with the most available capacity, aiming to decrease the number of Spot interruptions in our cluster (when EC2 needs the capacity back).
 
 {{% notice info %}}
 The creation of the nodes will take about 3 minutes.
