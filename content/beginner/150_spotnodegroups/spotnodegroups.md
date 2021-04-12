@@ -28,7 +28,7 @@ eksctl create nodegroup \
 ```
 
 {{% notice warning %}}
-Note, the instance types above might not be present in your region. To select instance types that meet that criteria in your region, you could run `eksctl create nodegroup` command with Instance Selector options flags to help you select compatible instance types for your application to run on. Execute the command `eksctl create nodegroup --cluster=eksworkshop-eksctl --region=${AWS_REGION} --managed --spot --name=ng-spot --instance-selector-vcpus=2 --instance-selector-memory=8 --instance-selector-cpu-architecture=x86_64` to get a diversified selection of instance types available in your region of choice that meet the criteria of being similar to m4.large (in vCPU and memory terms)
+Note, the instance types above might not be present in your region. To select instance types that meet that criteria in your region, you could run `eksctl create nodegroup` command with Instance Selector options flags to help you select compatible instance types for your application to run on. Execute the command `eksctl create nodegroup --cluster=eksworkshop-eksctl --region=${AWS_REGION} --managed --spot --name=ng-spot --instance-selector-vcpus=2 --instance-selector-memory=8 --instance-selector-cpu-architecture=x86_64` to get a diversified selection of instance types available in your region of choice that meet the criteria of being similar to m4.large (in vCPU and memory terms). Benefits of running instance selector options include filtering of instances supported by EKS in a particular region and access to the EC2 Instance types based on vCPU and memory requirements.
 {{% /notice %}}
 
 Spot managed node group creates a label **eks.amazonaws.com/capacityType** and sets it to **SPOT** for the nodes.
